@@ -7,6 +7,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.bitsamericas.config.BitsDriver;
 import net.bitsamericas.pages.ContactPage;
+import org.junit.Assert;
 
 public class ContactSteps {
 
@@ -36,29 +37,29 @@ public class ContactSteps {
         page.fillInformationData(name, email);
     }
 
-    @When("completo el campo organizacion con {string}")
-    public void completo_el_campo_organizacion_con(String organization) {
-        page.fillOrganizationInformation(organization);
+    @When("completo el campo telefono con {string} y lleno el campo organizacion con {string}")
+    public void completo_el_campo_telefono_con_y_lleno_el_campo_organizacion_con(String phone, String organization) {
+        page.fillPhoneAndOrganizationInformation(phone, organization);
     }
 
     @When("acepto los terminos y condiciones")
     public void acepto_los_terminos_y_condiciones() {
-        //page.checkTermsOfService();
+        page.checkTermsOfService();
     }
 
     @When("verifico que no soy un robot")
     public void verifico_que_no_soy_un_robot() {
-
+        //page.checkCaptcha();
     }
 
     @When("doy clic en el boton Enviar")
     public void doy_clic_en_el_boton_Enviar() {
-
+        page.submitInformation();
     }
 
     @Then("recibo un mensaje de confirmacion con el texto {string}")
-    public void recibo_un_mensaje_de_confirmacion_con_el_texto(String string) {
-
+    public void recibo_un_mensaje_de_confirmacion_con_el_texto(String successMessage) {
+        Assert.assertEquals(successMessage, page.getSuccessMessage());
     }
 
 
